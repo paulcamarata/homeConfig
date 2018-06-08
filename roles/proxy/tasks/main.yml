@@ -1,0 +1,14 @@
+---
+# This play is to configure the proxy machines managed by Ansible in my home environment.
+
+# Created by: Paul Camarata
+
+- name: Install_Latest_epel
+  yum:
+    name: epel-release
+    state: latest
+
+- name: Install_Latest_nginx
+  yum:
+    name: nginx
+    state: latest

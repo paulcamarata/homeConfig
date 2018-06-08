@@ -1,0 +1,4 @@
+---
+- hosts: CentOS
+  roles: 
+  - updates
