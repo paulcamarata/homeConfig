@@ -42,12 +42,20 @@
 
 ## db-[99:101]-node.example.com
 
+[ansible]
+pc-cent
+
 [Plex]
 plex
 
 [nginx]
 nginx
 
+[minecraft]
+pc-minecraft
+
 [CentOS]
 nginx
 plex
+pc-cent
+pc-minecraft
