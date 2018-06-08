@@ -1,0 +1,42 @@
+---
+# This play is to establish a base configuration on all machines managed by Ansible in my home environment.
+
+# Created by: Paul Camarata
+
+# setup host files on all systems using a template
+# TODO: grab the local containers via 'lxc-ls -f' and feed the results into the host file
+- name: configure_host_file
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+# establish my prefferred user/password
+# Password generated using:
+# python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(), crypt.mksalt(crypt.METHOD_SHA512)))'
+- name: create_user
+  user: 
+    name: camarata.sa
+    comment: Paul Camarata
+    group: wheel
+    password: $6$u2ATSweUnFL39y7O$TgfbjF/cojIPdTMFsb9061NLreCoO7FFABdYuh2kLytSrT55ZN5SXZOroQ6Je016xXtvbJuUx7wzd7MttmPph.
+
+- name: .ssh_folder
+  file:
+     path: /home/camarata.sa/.ssh
+     owner: camarata.sa
+     group: wheel
+     mode: 0700
+     state: directory
+
+# configure my public key on all targets
+- name: pub_key
+  template:
+    src: authorized_keys.j2
+    dest: /home/camarata.sa/.ssh/authorized_keys
+    owner: camarata.sa
+    group: wheel
+    mode: 0600
