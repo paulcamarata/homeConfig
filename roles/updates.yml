@@ -1,4 +1,4 @@
 ---
 - hosts: CentOS
-  roles: 
-  - updates
+  roles:
+     - updates
