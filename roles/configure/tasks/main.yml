@@ -40,3 +40,9 @@
     owner: camarata.sa
     group: wheel
     mode: 0600
+
+- name: Install_Packages
+  yum:
+    name:
+      - less
+      - net-tools

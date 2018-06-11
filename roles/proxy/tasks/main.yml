@@ -12,3 +12,43 @@
   yum:
     name: nginx
     state: latest
+
+- name: key_directory
+  file:
+     path: /etc/pki/nginx
+     owner: nginx
+     group: nginx
+     mode: 0700
+     state: directory
+
+- name: private_key
+  copy:
+     src: server.key
+     dest: /etc/pki/nginx/server.key
+     owner: nginx
+     group: nginx
+     mode: 0700
+ 
+- name: public_key
+  copy:
+     src: server.pem
+     dest: /etc/pki/nginx/server.pem
+     owner: nginx
+     group: nginx
+     mode: 0700
+
+- name: config
+  copy:
+     src: nginx.conf
+     dest: /etc/nginx/nginx.conf
+     owner: nginx
+     group: nginx
+     mode: 0644
+
+- name: enable_nginx
+  service:
+    name: nginx
+    enabled: yes
+    state: started
+# Need to install a template
+
