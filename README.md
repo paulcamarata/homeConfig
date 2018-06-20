@@ -2,5 +2,6 @@
 Just me setting up my home environment
 
 
-# TODO: Initial local configuration: lxc setup
+# TODO: Moar Docker
 # TODO: Containerized DNS vice host files (or in conjunction with)
+# TODO: OpenVPN-AS post installation configuration
