@@ -1,0 +1,15 @@
+---
+# This play is to establish a base configuration for a vpn machine managed by Ansible in my home environment.
+
+# Created by: Paul Camarata
+
+# setup host files on all systems using a template
+# TODO: grab the local containers via 'lxc-ls -f' and feed the results into the host file
+- name: install_openvpn-as
+  yum:
+    name: http://swupdate.openvpn.org/as/openvpn-as-2.5.2-CentOS7.x86_64.rpm
+
+- name: update_openvpn
+  user: 
+    name: openvpn
+    password: $6$BcJFK/Dg1RGoOS4U$.jZhnvGMP5Sx1iZLlIVWX/GvLwEKeWB.nHIDyLR4t0lBE3PW6AAVkiInMXG9xnZaqt0y5qTkxFDF6ogaVEiBD0

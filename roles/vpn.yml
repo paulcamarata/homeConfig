@@ -1,0 +1,8 @@
+---
+# This play is to establish a base configuration on all vpn nodes managed by Ansible in my home environment.
+
+# Created by: Paul Camarata
+
+- hosts: vpn
+  roles:
+     - vpn
