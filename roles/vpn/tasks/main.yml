@@ -13,3 +13,10 @@
   user: 
     name: openvpn
     password: $6$BcJFK/Dg1RGoOS4U$.jZhnvGMP5Sx1iZLlIVWX/GvLwEKeWB.nHIDyLR4t0lBE3PW6AAVkiInMXG9xnZaqt0y5qTkxFDF6ogaVEiBD0
+
+- name: add_user
+  user: 
+    name: camarata
+    create_home: no
+    shell: /sbin/nologin
+    password: $6$BcJFK/Dg1RGoOS4U$.jZhnvGMP5Sx1iZLlIVWX/GvLwEKeWB.nHIDyLR4t0lBE3PW6AAVkiInMXG9xnZaqt0y5qTkxFDF6ogaVEiBD0

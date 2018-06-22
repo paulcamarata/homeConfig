@@ -1,0 +1,9 @@
+---
+# This role is to establish a base configuration on all machines managed by Ansible in my home environment.
+
+# Created by: Paul Camarata
+
+- name: Set up Bind
+  hosts: ns
+  roles:
+    - bind

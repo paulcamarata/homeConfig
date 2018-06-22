@@ -45,6 +45,10 @@
 [vpn]
 pc-vpn
 
+[ns]
+pc-ns1
+pc-ns2
+
 [ansible]
 pc-cent
 
@@ -53,5 +57,8 @@ pc-minecraft
 
 [CentOS]
 pc-vpn
+pc-ns1
+pc-ns2
 pc-cent
 pc-minecraft
+wkst

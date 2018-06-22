@@ -1,0 +1,9 @@
+---
+# vars file for Bind setup
+domain: pc.local
+
+rev_domain: 30.1.10.in-addr.arpa
+
+records:
+  ns1: {forward: 10.1.30.11, type: A, last: 11, rev: 30.1.10.in-addr.arpa.}
+  ansible: {forward: 10.1.30.5, type: A, last: 5, rev: 30.1.10.in-addr.arpa.}
