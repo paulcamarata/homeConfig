@@ -42,6 +42,9 @@
 
 ## db-[99:101]-node.example.com
 
+[dhcp]
+pc-dhcp
+
 [vpn]
 pc-vpn
 

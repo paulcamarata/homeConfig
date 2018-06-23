@@ -3,6 +3,7 @@
 domain: pc.local
 
 records:
+  dhcp: {forward: 192.168.0.2, type: A, last: 2, rev: 0.168.192.in-addr.arpa.}
   nuc: {forward: 192.168.0.3, type: A, last: 3, rev: 0.168.192.in-addr.arpa.}
   vpn: {forward: 192.168.0.4, type: A, last: 4, rev: 0.168.192.in-addr.arpa.}
   ns1: {forward: 192.168.0.5, type: A, last: 5, rev: 0.168.192.in-addr.arpa.}
