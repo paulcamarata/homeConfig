@@ -1,17 +1,10 @@
 ---
 # tasks file for Bind setup
-- name: Install bind
+- name: Install_Packages
   yum:
-    pkg: bind
-    state: installed
-
-- name: Set hostname
-  hostname:
-    name: {{ host_name }}
-
-- name: Set hostname fact
-  set_fact:
-    ansible_fqdn: {{ host_name }}
+    name:
+    - bind
+    - bind-utils
 
 - name: Copy named conf file
   template:
@@ -55,7 +48,6 @@
     owner: root
     group: named
     mode: 0640
-  with_dict: "{{ records }}"
   notify: restart named
 
 
@@ -66,7 +58,6 @@
     owner: root
     group: named
     mode: 0640
-  with_dict: "{{ records }}"
   notify: restart named
 
 - name: Open firewall port

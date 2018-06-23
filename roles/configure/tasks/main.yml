@@ -4,7 +4,6 @@
 # Created by: Paul Camarata
 
 # setup host files on all systems using a template
-# TODO: grab the local containers via 'lxc-ls -f' and feed the results into the host file
 - name: configure_host_file
   template:
     src: hosts.j2

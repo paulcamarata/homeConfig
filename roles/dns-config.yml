@@ -6,4 +6,9 @@
 - name: Set up Bind
   hosts: ns
   roles:
-    - bind
+    - dns-config-servers
+
+- name: config_DNS
+  hosts: CentOS
+  roles:
+  - dns-config-hosts

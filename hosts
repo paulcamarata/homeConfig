@@ -53,12 +53,13 @@ pc-ns2
 pc-cent
 
 [minecraft]
-pc-minecraft
+pc-mc
 
 [CentOS]
+pc-dhcp
 pc-vpn
 pc-ns1
 pc-ns2
 pc-cent
-pc-minecraft
+pc-mc
 wkst

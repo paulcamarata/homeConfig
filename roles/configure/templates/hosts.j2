@@ -1,11 +1,7 @@
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
-# Main network
-192.168.0.139       pc-cent.pc.local        pc-cent         cent
-192.168.0.3         pc-nuc.pc.local         pc-nuc          nuc
-192.168.0.4         pc-vpn.pc.local         pc-vpn          vpn
-192.168.0.5         pc-ns1.pc.local         pc-ns1          ns1
-192.168.0.6         pc-ns2.pc.local         pc-ns2          ns2
-192.168.0.10        pc-minecraft.pc.local   pc-minecraft    mc
-192.168.0.147       wkst.pc.local           wkst
+# Main network for {{ domain }}
+{% for key, value in records.iteritems() %}
+{{ value.forward }}     pc-{{ key }}.{{ domain }}   pc-{{ key }}   {{ key }}
+{% endfor %}
