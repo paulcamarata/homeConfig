@@ -4,6 +4,6 @@
 # Created by: Paul Camarata
 
 - name: Update_CentOS machines
-  yum:
+  package:
     name: '*'
     state: latest

@@ -3,9 +3,8 @@
 
 # Created by: Paul Camarata
 
-- name: python_Ubuntu
-  raw: "test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)"
-  when: ansible_distribution == 'Ubuntu'
+#- name: python_Ubuntu
+#  raw: "test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)"
 
 # setup host files on all systems using a template
 - name: configure_host_file
@@ -26,7 +25,6 @@
     comment: Paul Camarata
     group: wheel
     password: $6$u2ATSweUnFL39y7O$TgfbjF/cojIPdTMFsb9061NLreCoO7FFABdYuh2kLytSrT55ZN5SXZOroQ6Je016xXtvbJuUx7wzd7MttmPph.
-  when: ansible_distribution == 'CentOS'
 
 - name: .ssh_folder
   file:
@@ -35,7 +33,6 @@
      group: wheel
      mode: 0700
      state: directory
-  when: ansible_distribution == 'CentOS'
 
 # configure my public key on all targets
 - name: pub_key
@@ -45,11 +42,9 @@
     owner: camarata.sa
     group: wheel
     mode: 0600
-  when: ansible_distribution == 'CentOS'
 
 - name: Install_Packages
   package:
     name:
       - less
       - net-tools
-      - python-minimal

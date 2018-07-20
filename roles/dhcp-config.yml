@@ -1,0 +1,5 @@
+---
+- name: Set up Bind
+  hosts: dhcp
+  roles:
+    - dhcp-config-servers
