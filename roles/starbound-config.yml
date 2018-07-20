@@ -1,0 +1,8 @@
+---
+# This play is to configure the Starbound server in my home environment.
+
+# Created by: Paul Camarata
+
+- hosts: starbound
+  roles:
+     - starbound-config.yml

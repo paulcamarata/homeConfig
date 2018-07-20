@@ -58,6 +58,9 @@ pc-cent
 [minecraft]
 pc-mc
 
+[starbound]
+pc-sb
+
 [CentOS]
 pc-dhcp
 pc-vpn
@@ -66,3 +69,6 @@ pc-ns2
 pc-cent
 pc-mc
 wkst
+
+[Ubuntu]
+pc-sb

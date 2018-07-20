@@ -3,6 +3,6 @@
 
 # Created by: Paul Camarata
 
-- hosts: CentOS
+- hosts: all
   roles:
      - configure

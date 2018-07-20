@@ -1,0 +1,15 @@
+# This play is to configure the Starbound server in my home environment.
+
+# Created by: Paul Camarata
+
+- name: Install_Packages
+  package:
+    name:
+      - lib32gcc1
+      - libvorbisfile3
+
+- name: create_user
+  user: 
+    name: steam
+
+

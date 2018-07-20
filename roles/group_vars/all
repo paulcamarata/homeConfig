@@ -9,5 +9,6 @@ records:
   ns1: {forward: 192.168.0.5, type: A, last: 5, rev: 0.168.192.in-addr.arpa.}
   ns2: {forward: 192.168.0.6, type: A, last: 6, rev: 0.168.192.in-addr.arpa.}
   mc: {forward: 192.168.0.10, type: A, last: 10, rev: 0.168.192.in-addr.arpa.}
-  cent: {forward: 192.168.0.139, type: A, last: 139, rev: 0.168.192.in-addr.arpa.}
+  sb: {forward: 192.168.0.12, type: A, last: 12, rev: 0.168.192.in-addr.arpa.}
+  cent: {forward: 192.168.0.141, type: A, last: 141, rev: 0.168.192.in-addr.arpa.}
   wkst: {forward: 192.168.0.147, type: A, last: 147, rev: 0.168.192.in-addr.arpa.}
