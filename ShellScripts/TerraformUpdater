@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl -O https://releases.hashicorp.com/terraform/$(curl https://releases.hashicorp.com/terraform/ | grep '<a href="/terraform' | head -1 | cut -d '/' -f 3)/terraform_$(curl https://releases.hashicorp.com/terraform/ | grep '<a href="/terraform' | head -1 | cut -d '/' -f 3)_linux_amd64.zip
