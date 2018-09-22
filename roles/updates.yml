@@ -3,6 +3,6 @@
 
 # Created by: Paul Camarata
 
-- hosts: all
+- hosts: CentOS
   roles:
      - updates

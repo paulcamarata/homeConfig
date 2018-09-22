@@ -1,3 +1,4 @@
 /roles/RHEL7-STIG
 *.retry
 server.key
+*.rpmnew

@@ -55,6 +55,12 @@ pc-ns2
 [ansible]
 pc-cent
 
+[proxy]
+pc-proxy
+
+[jenkins]
+pc-jenkins
+
 [minecraft]
 pc-mc
 
@@ -69,6 +75,7 @@ pc-ns2
 pc-cent
 pc-mc
 wkst
+jenkins
 
 [Ubuntu]
 pc-sb
