@@ -67,6 +67,9 @@ pc-mc
 [starbound]
 pc-sb
 
+[selenium]
+pc-selenium
+
 [CentOS]
 pc-dhcp
 pc-vpn
@@ -75,7 +78,8 @@ pc-ns2
 pc-cent
 pc-mc
 wkst
-jenkins
+pc-jenkins
+pc-selenium
 
 [Ubuntu]
 pc-sb

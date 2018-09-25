@@ -12,5 +12,6 @@ records:
   mc: {forward: 192.168.0.10, type: A, last: 10, rev: 0.168.192.in-addr.arpa.}
   jenkins: {forward: 192.168.0.11, type: A, last: 11, rev: 0.168.192.in-addr.arpa.}
   sb: {forward: 192.168.0.12, type: A, last: 12, rev: 0.168.192.in-addr.arpa.}
+  selenium: {forward: 192.168.0.13, type: A, last: 13, rev: 0.168.192.in-addr.arpa.}
   cent: {forward: 192.168.0.141, type: A, last: 141, rev: 0.168.192.in-addr.arpa.}
   wkst: {forward: 192.168.0.147, type: A, last: 147, rev: 0.168.192.in-addr.arpa.}
