@@ -36,3 +36,4 @@
     name:
       - less
       - net-tools
+    state: latest
