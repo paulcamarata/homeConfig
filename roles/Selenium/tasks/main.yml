@@ -1,0 +1,44 @@
+---
+# Created by: Paul Camarata
+
+- name: enable_Google_repo
+  copy:
+    src: google-chrome.repo
+    dest: /etc/yum.repos.d/google-chrome.repo
+
+- name: Install_Initial_RPMs
+  yum:
+    name:
+    - google-chrome-stable
+    - epel-release
+    - wget
+    - firefox
+    - Xvfb
+    - libXfont
+    - Xorg
+    - "@X Window System"
+    - "@Desktop"
+    - "@Fonts"
+    - "@General Purpose Desktop"
+    state: latest
+
+- name: Install_Python
+  yum:
+    name:
+    - python-pip
+    - python-wheel
+    state: latest
+
+- name: Install_Selenium
+  pip:
+    name: selenium
+
+- name: Register_Latest_GeckoDriver_Version
+  shell: wget -qO- https://github.com/mozilla/geckodriver/releases/latest | grep linux64 | grep download | cut -d "\"" -f 2
+  register: geckodriver_version
+
+- name: unarchive_GeckoDriver
+  unarchive:
+    src: https://github.com{{ geckodriver_version.stdout }}
+    dest: /bin
+    remote_src: yes

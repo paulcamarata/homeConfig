@@ -1,0 +1,6 @@
+---
+# Created by: Paul Camarata
+
+- hosts: pc-selenium
+  roles:
+     - Selenium
