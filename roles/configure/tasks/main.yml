@@ -32,7 +32,7 @@
     key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCnOe8PQbYjR7keQQQfJ+kTMhzQm5X8d8OVcrcx5bE3F7nBb7oAPp/FOYYvmdessOXS3nLn2t04GGKthqCQgR80aQ/rMi0rJ6MYwlPVrBiMlD2pAMqc+qJjT0s/R8LAuU2NLU/5BQ6fB2Iabmogwdpc44QVTLerFAhTvptjgIbKu9nkmiMouuvBwy4EhjMO+pGzMFCDDWSZFoMHatwnwA6Y1gliTrg0pFSXljR2cvuJWa62YBP2zrJn2Wrd9J9GhiyW4g9M2j2OAYz+QvmU0SWI6kqqH+z9eoPtXaWbz9OJ1xgLTfUCPythz89xhFs2qZ7Ai2r6/npSB+BbBAsONfYB camarata.sa@pc-cent.pc.local"
 
 - name: Install_Packages
-  package:
+  yum:
     name:
       - less
       - net-tools
