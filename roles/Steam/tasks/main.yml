@@ -1,0 +1,38 @@
+---
+- name: create_steam_user
+  user: 
+    name: steam
+    home: "{{ steam_home }}"
+    system: yes
+    shell: /sbin/nologin
+
+- name: install_preReqs
+  yum:
+    name:
+      - glibc.i686
+      - libstdc++.i686
+      - ncurses-libs.i686
+    state: latest
+
+- name: get_SteamCMD
+  unarchive:
+    src: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
+    dest: "{{ steam_home }}"
+    owner: steam
+    group: steam
+    remote_src: yes
+    creates: "{{ steam_home }}/steamcmd.sh"
+
+- name: fix_Permissions
+  file:
+    path: "{{ steam_home }}/linux32"
+    owner: steam
+    group: steam
+    state: directory
+
+- name: update_SteamCMD
+  command: "{{ steam_home }}/steamcmd.sh +quit"
+  become: yes
+  become_user: steam
+  register: steamUpdate
+  changed_when: steamUpdate.stdout.find("Update complete, launching") != -1
