@@ -70,6 +70,9 @@ pc-sb
 [selenium]
 pc-selenium
 
+[ark]
+pc-ark
+
 [CentOS]
 pc-dhcp
 pc-vpn
@@ -80,6 +83,7 @@ pc-mc
 wkst
 pc-jenkins
 pc-selenium
+pc-ark
 
 [Ubuntu]
 pc-sb

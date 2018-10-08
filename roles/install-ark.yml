@@ -1,0 +1,7 @@
+---
+# Created by: Paul Camarata
+
+- hosts: pc-ark
+  roles:
+     - Steam
+     - Ark

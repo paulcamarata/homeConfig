@@ -1,0 +1,98 @@
+---
+- name: install_preReqs
+  yum:
+    name:
+      - screen
+    state: latest
+
+- name: create_scripts_folder
+  file:
+    path: "{{ scripts_home }}"
+    owner: steam
+    group: steam
+    state: directory
+
+- name: setup_Firewall
+  firewalld:
+    port: "{{ item }}"
+    permanent: true
+    state: enabled
+  with_items:
+    - 7777/udp
+    - 27015/udp
+    - 32330/tcp
+  register: firewall
+
+- name: restart_Firewall
+  systemd:
+    name: firewalld
+    state: restarted
+  when: firewall.changed
+
+- name: mod_sysctl.conf
+  sysctl:
+    sysctl_file: /etc/sysctl.conf
+    name: fs.file-max
+    value: 100000
+    state: present
+
+- name: mod_limits.conf
+  pam_limits:
+    domain: "*"
+    limit_type: "{{ item }}"
+    limit_item: nofile
+    value: 1000000
+  with_items:
+    - soft
+    - hard
+
+- name: templates
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ scripts_home }}/{{ item }}"
+    owner: steam
+    group: steam
+    mode: 0700
+  with_items:
+    - startArk.sh
+    - stopArk.sh
+    - updateArk.sh
+
+- name: install_Ark
+  command: "{{ scripts_home }}/updateArk.sh"
+  become: yes
+  become_user: steam
+  register: install
+  changed_when: install.stdout.find("Success! App '376030' fully installed.") != -1
+
+# [ServerSettings]
+# Add custom lininfile or template for -
+# serverPVE=1
+# ServerPassword=NoLifer
+# alwaysNotifyPlayerJoined=1
+# alwaysNotifyPlayerLeft=1
+# AllowCaveBuildingPVE=True
+# AllowFlyerCarryPVE=1
+# HarvestAmountMultiplier=5
+# XPMultiplier=5
+# DifficultyOffset=0.5
+# OverrideOfficialDifficulty=10
+# TamingSpeedMultiplier=5
+# AllowAnyoneBabyImprintCuddle=True
+# PVEAllowStructuresAtSupplyDrops=1
+# ShowFloatingDamageText=True
+
+# [SessionSettings]
+# SessionName=PCBot & Fam
+
+# [/Script/Engine.GameSession]
+# MaxPlayers=10
+
+# [MessageOfTheDay]
+# Duration=5
+# Message=Welcome to my server Bitches!
+
+
+# Game.ini
+# [/script/shootergame.shootergamemode]
+# PerLevelStatsMultiplier_Player[7]=5

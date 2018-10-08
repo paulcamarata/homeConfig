@@ -1,0 +1,3 @@
+---
+scripts_home: "{{ steam_home }}/scripts/ark"
+steam_ark: 376030
