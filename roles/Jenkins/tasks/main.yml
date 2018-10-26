@@ -1,16 +1,6 @@
 ---
 # Created by: Paul Camarata
 
-- name: Install_Latest_JDK
-  yum:
-    name: java-1.8.0-openjdk
-    state: latest
-
-- name: Install_Latest_JDK-Devel
-  yum:
-    name: java-1.8.0-openjdk-devel
-    state: latest
-
 - name: add_jenkins_repo
   get_url:
     url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
@@ -22,9 +12,12 @@
     state: present
     key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
 
-- name: Install_Latest_Jenkins
+- name: install_Jenkins
   yum:
-    name: jenkins
+    name:
+    - java-1.8.0-openjdk
+    - java-1.8.0-openjdk-devel
+    - jenkins
     state: latest
 
 - name: enable_Jenkins_Daemon
@@ -38,3 +31,10 @@
     port: 8080/tcp
     permanent: true
     state: enabled
+  register: firewall
+
+- name: restart_Firewall
+  systemd:
+    name: firewalld
+    state: restarted
+  when: firewall.changed

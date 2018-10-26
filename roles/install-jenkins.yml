@@ -1,6 +1,6 @@
 ---
 # Created by: Paul Camarata
 
-- hosts: jenkins
+- hosts: pc-jenkins
   roles:
      - Jenkins
