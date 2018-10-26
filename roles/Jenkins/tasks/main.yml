@@ -1,7 +1,7 @@
 ---
 # Created by: Paul Camarata
 
-- name: add_jenkins_repo
+- name: add_Jenkins_repo
   get_url:
     url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
     dest: /etc/yum.repos.d/jenkins.repo
@@ -12,14 +12,38 @@
     state: present
     key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
 
-- name: install_Jenkins
+- name: add_Docker_repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+    mode: 0644
+
+
+- name: install_RPMs
   yum:
     name:
     - java-1.8.0-openjdk
     - java-1.8.0-openjdk-devel
     - jenkins
+    - git
+    - docker-ce
+    - device-mapper-persistent-data
+    - lvm2
     state: latest
 
+- name: mod_Jenkins_User
+  user: 
+    name: jenkins
+    comment: jenkins
+    groups: docker
+    shell: /sbin/nologin
+
+- name: enable_Docker_Daemon
+  systemd:
+    state: started
+    name: docker
+    enabled: yes
+   
 - name: enable_Jenkins_Daemon
   systemd:
     state: started
