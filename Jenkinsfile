@@ -1,6 +1,6 @@
 pipeline {
     stages {
-        stage {
+        stage ('Ansible Syntax Test') {
             steps {
                 ansiblePlaybook('roles/install-jenkins.yml') {
                     inventoryPath('tests/ansible_hosts')
