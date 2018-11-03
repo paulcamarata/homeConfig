@@ -89,7 +89,7 @@
     group: "{{ steam_user }}"
     mode: 0600
 
-    - name: enable/startService
+- name: enable/startService
   systemd:
     daemon_reload: yes
     state: started
