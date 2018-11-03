@@ -8,8 +8,8 @@
 - name: create_scripts_folder
   file:
     path: "{{ scripts_home }}"
-    owner: steam
-    group: steam
+    owner: "{{ steam_user }}"
+    group: "{{ steam_user }}"
     state: directory
 
 - name: setup_Firewall
@@ -50,8 +50,8 @@
   template:
     src: "{{ item }}.j2"
     dest: "{{ scripts_home }}/{{ item }}"
-    owner: steam
-    group: steam
+    owner: "{{ steam_user }}"
+    group: "{{ steam_user }}"
     mode: 0700
   with_items:
     - startArk.sh
@@ -61,7 +61,7 @@
 - name: install_Ark
   command: "{{ scripts_home }}/updateArk.sh"
   become: yes
-  become_user: steam
+  become_user: "{{ steam_user }}"
   register: install
   changed_when: install.stdout.find("Success! App '376030' fully installed.") != -1
 
@@ -73,51 +73,25 @@
     group: root
     mode: 0644
 
-- name: enable/startService
+- name: gameiniTemplate
+  template:
+    src: "Game.ini.j2"
+    dest: "{{ ark_config_dir }}/Game.ini"
+    owner: "{{ steam_user }}"
+    group: "{{ steam_user }}"
+    mode: 0600
+
+- name: gameusersettingsiniTemplate
+  template:
+    src: "Game.ini.j2"
+    dest: "{{ ark_config_dir }}/GameUserSettings.ini"
+    owner: "{{ steam_user }}"
+    group: "{{ steam_user }}"
+    mode: 0600
+
+    - name: enable/startService
   systemd:
     daemon_reload: yes
     state: started
     name: ark-dedicated.service
     enabled: yes
-
-# [ServerSettings]
-# Add custom lininfile or template for -
-# serverPVE=1
-# ServerPassword=NoLifer
-# alwaysNotifyPlayerJoined=1
-# alwaysNotifyPlayerLeft=1
-# AllowCaveBuildingPVE=True
-# AllowFlyerCarryPVE=1
-# HarvestAmountMultiplier=5
-# XPMultiplier=5
-# DifficultyOffset=0.5
-# OverrideOfficialDifficulty=10
-# TamingSpeedMultiplier=5
-# AllowAnyoneBabyImprintCuddle=True
-# PVEAllowStructuresAtSupplyDrops=1
-# ShowFloatingDamageText=True
-
-# [SessionSettings]
-# SessionName=PCBot & Fam
-
-# [/Script/Engine.GameSession]
-# MaxPlayers=10
-
-# [MessageOfTheDay]
-# Duration=5
-# Message=Welcome to my server Bitches!
-
-
-# Game.ini
-# [/script/shootergame.shootergamemode]
-# PerLevelStatsMultiplier_Player[7]=5
-# PerLevelStatsMultiplier_DinoTamed[7]=5
-# PerLevelStatsMultiplier_DinoTamed_Add[7]=5
-# PerLevelStatsMultiplier_DinoTamed_Affinity[7]=5
-# PerLevelStatsMultiplier_DinoWild[7]=5
-# PerLevelStatsMultiplier_DinoWild_Add[7]=5
-# PerLevelStatsMultiplier_DinoWild_Affinity[7]=5
-# MatingIntervalMultiplier=5.0
-# EggHatchSpeedMultiplier=5.0
-# BabyMatureSpeedMultiplier=5.0
-

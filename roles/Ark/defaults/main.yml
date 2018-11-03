@@ -1,4 +1,5 @@
 ---
 scripts_home: "{{ steam_home }}/scripts/ark"
 ark_binaries: "{{ steam_home }}/Steam/steamapps/common/ARK Survival Evolved Dedicated Server/ShooterGame/Binaries"
+ark_config_dir: "{{ steam_home }}/Steam/steamapps/common/ARK Survival Evolved Dedicated Server/ShooterGame/Saved/Config/LinuxServer"
 steam_ark: 376030
