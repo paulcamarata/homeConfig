@@ -3,5 +3,4 @@
 
 - hosts: pc-ark
   roles:
-     - Steam
      - Ark

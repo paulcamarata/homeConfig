@@ -19,3 +19,4 @@ records:
 
 # vars for steam related setup
 steam_home: /opt/steam
+steam_user: steam

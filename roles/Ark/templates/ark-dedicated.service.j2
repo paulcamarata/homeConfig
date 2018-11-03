@@ -1,0 +1,17 @@
+[Unit]
+Description=ARK: Survival Evolved dedicated server
+Wants=network-online.target
+After=syslog.target network.target nss-lookup.target network-online.target
+
+[Service]
+ExecStartPre={{ steam_home }}/steamcmd.sh +login anonymous +app_update 376030 +quit
+ExecStart="{{ ark_binaries }}/Linux/ShooterGameServer" TheIsland?listen? -server -log
+WorkingDirectory="{{ steam_home }}/Linux"
+LimitNOFILE=100000
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s INT $MAINPID
+User={{ steam_user }}
+Group={{ steam_user }}
+
+[Install]
+WantedBy=multi-user.target

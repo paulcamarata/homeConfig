@@ -65,6 +65,21 @@
   register: install
   changed_when: install.stdout.find("Success! App '376030' fully installed.") != -1
 
+- name: systemdTemplate
+  template:
+    src:  "ark-dedicated.service.j2"
+    dest: /etc/systemd/system/ark-dedicated.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable/startService
+  systemd:
+    daemon_reload: yes
+    state: started
+    name: ark-dedicated.service
+    enabled: yes
+
 # [ServerSettings]
 # Add custom lininfile or template for -
 # serverPVE=1
@@ -96,3 +111,13 @@
 # Game.ini
 # [/script/shootergame.shootergamemode]
 # PerLevelStatsMultiplier_Player[7]=5
+# PerLevelStatsMultiplier_DinoTamed[7]=5
+# PerLevelStatsMultiplier_DinoTamed_Add[7]=5
+# PerLevelStatsMultiplier_DinoTamed_Affinity[7]=5
+# PerLevelStatsMultiplier_DinoWild[7]=5
+# PerLevelStatsMultiplier_DinoWild_Add[7]=5
+# PerLevelStatsMultiplier_DinoWild_Affinity[7]=5
+# MatingIntervalMultiplier=5.0
+# EggHatchSpeedMultiplier=5.0
+# BabyMatureSpeedMultiplier=5.0
+
