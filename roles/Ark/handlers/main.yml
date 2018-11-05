@@ -1,0 +1,13 @@
+---
+- name: restartFirewalld
+  systemd:
+    name: firewalld
+    state: restarted
+  listen: firewalld
+
+- name: restartArk
+  systemd:
+    state: restarted
+    name: "ark-{{ item.key }}.service"
+  with_dict: "{{ ark_map }}"
+  listen: restartArk
