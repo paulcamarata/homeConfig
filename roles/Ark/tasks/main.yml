@@ -1,17 +1,4 @@
 ---
-- name: install_preReqs
-  yum:
-    name:
-      - screen
-    state: latest
-
-- name: create_scripts_folder
-  file:
-    path: "{{ scripts_home }}"
-    owner: "{{ steam_user }}"
-    group: "{{ steam_user }}"
-    state: directory
-
 - name: setup_Firewall
   firewalld:
     port: "{{ item }}"
@@ -19,15 +6,15 @@
     state: enabled
   with_items:
     - 7777/udp
+    - 7778/udp
+    - 7779/udp
+    - 7780/udp
     - 27015/udp
+    - 27016/udp
+    - 27017/udp
+    - 27018/udp
     - 32330/tcp
-  register: firewall
-
-- name: restart_Firewall
-  systemd:
-    name: firewalld
-    state: restarted
-  when: firewall.changed
+  notify: firewalld
 
 - name: mod_sysctl.conf
   sysctl:
@@ -46,32 +33,30 @@
     - soft
     - hard
 
-- name: templates
-  template:
-    src: "{{ item }}.j2"
-    dest: "{{ scripts_home }}/{{ item }}"
-    owner: "{{ steam_user }}"
-    group: "{{ steam_user }}"
-    mode: 0700
-  with_items:
-    - startArk.sh
-    - stopArk.sh
-    - updateArk.sh
+# - name: install_Ark
+#   command: "{{ scripts_home }}/updateArk.sh"
+#   become: yes
+#   become_user: "{{ steam_user }}"
+#   register: install
+#   changed_when: install.stdout.find("Success! App '376030' fully installed.") != -1
 
-- name: install_Ark
-  command: "{{ scripts_home }}/updateArk.sh"
-  become: yes
-  become_user: "{{ steam_user }}"
-  register: install
-  changed_when: install.stdout.find("Success! App '376030' fully installed.") != -1
+- name: enable/startService
+  systemd:
+    daemon_reload: yes
+    state: started
+    name: "ark-{{ item.key }}.service"
+    enabled: yes
+  with_dict: "{{ ark_map }}"
 
 - name: systemdTemplate
   template:
     src:  "ark-dedicated.service.j2"
-    dest: /etc/systemd/system/ark-dedicated.service
+    dest: "/etc/systemd/system/ark-{{ item.key }}.service"
     owner: root
     group: root
     mode: 0644
+  with_dict: "{{ ark_map }}"
+  notify: restartArk
 
 - name: gameiniTemplate
   template:
@@ -79,19 +64,14 @@
     dest: "{{ ark_config_dir }}/Game.ini"
     owner: "{{ steam_user }}"
     group: "{{ steam_user }}"
-    mode: 0600
+    mode: 0400
+  notify: restartArk
 
 - name: gameusersettingsiniTemplate
   template:
-    src: "Game.ini.j2"
+    src: "GameUserSettings.ini.j2"
     dest: "{{ ark_config_dir }}/GameUserSettings.ini"
     owner: "{{ steam_user }}"
     group: "{{ steam_user }}"
-    mode: 0600
-
-- name: enable/startService
-  systemd:
-    daemon_reload: yes
-    state: started
-    name: ark-dedicated.service
-    enabled: yes
+    mode: 0400
+  notify: restartArk

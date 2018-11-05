@@ -1,5 +1,28 @@
 ---
-scripts_home: "{{ steam_home }}/scripts/ark"
+# Client configuration options
+
+
+# Server configuration options
+ark_map: 
+  TheIsland: 
+    port: 7777
+    qport: 27015
+  Ragnarok: 
+    port: 7779
+    qport: 27017
+
+clusterID: pcbot-cluster-1
+
+apassword: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          32303865316239316337653130666234653466633065643866383033323433663362313363313636
+          3335363431306534343661343864663936366565623139300a333962643865346665663339633666
+          64343134363634313466633831373439373333396437383965396534313435653633306664333630
+          3162663634623630350a656463396461613434613965623366656230306639353031336665663238
+          3064
+
+# Path Configuration for Install
 ark_binaries: "{{ steam_home }}/Steam/steamapps/common/ARK Survival Evolved Dedicated Server/ShooterGame/Binaries"
 ark_config_dir: "{{ steam_home }}/Steam/steamapps/common/ARK Survival Evolved Dedicated Server/ShooterGame/Saved/Config/LinuxServer"
+ark_server_dir: "{{ steam_home }}/Steam/steamapps/common/ARK Survival Evolved Dedicated Server/ShooterGame/Saved/SavedArks"
 steam_ark: 376030
