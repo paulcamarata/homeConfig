@@ -33,20 +33,12 @@
     - soft
     - hard
 
-# - name: install_Ark
-#   command: "{{ scripts_home }}/updateArk.sh"
-#   become: yes
-#   become_user: "{{ steam_user }}"
-#   register: install
-#   changed_when: install.stdout.find("Success! App '376030' fully installed.") != -1
-
-- name: enable/startService
-  systemd:
-    daemon_reload: yes
-    state: started
-    name: "ark-{{ item.key }}.service"
-    enabled: yes
-  with_dict: "{{ ark_map }}"
+- name: install_Ark
+  command: "{{ steam_home }}/steamcmd.sh +login anonymous +app_update {{ steam_ark }} +quit"
+  become: yes
+  become_user: "{{ steam_user }}"
+  register: install
+  changed_when: install.stdout.find("Success! App '376030' fully installed.") != -1
 
 - name: systemdTemplate
   template:
@@ -57,6 +49,14 @@
     mode: 0644
   with_dict: "{{ ark_map }}"
   notify: restartArk
+
+- name: enable/startService
+  systemd:
+    daemon_reload: yes
+    state: started
+    name: "ark-{{ item.key }}.service"
+    enabled: yes
+  with_dict: "{{ ark_map }}"
 
 - name: gameiniTemplate
   template:
