@@ -6,7 +6,7 @@ After=syslog.target network.target nss-lookup.target network-online.target
 [Service]
 ExecStartPre={{ steam_home }}/steamcmd.sh +login anonymous +app_update 376030 +quit
 ExecStart="{{ ark_binaries }}/Linux/ShooterGameServer" {{ item.key }}?listen?SessionName=PCBot-{{ item.key }}?AltSaveDirectoryName={{ item.key }}?Port={{ item.value.port }}?QueryPort={{ item.value.qport }}?RCONEnabled=false?bAllowUnlimitedRespecs=true -NoTransferFromFiltering -clusterid={{ clusterID }} -ForceRespawnDinos -server -log
-WorkingDirectory="{{ steam_home }}/Linux"
+WorkingDirectory="{{ ark_binaries }}/Linux"
 LimitNOFILE=100000
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s INT $MAINPID
