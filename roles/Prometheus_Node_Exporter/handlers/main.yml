@@ -1,0 +1,6 @@
+- name: Restart the blackbox_exporter service
+  systemd:
+    name: "{{ serviceName }}"
+    state: restarted
+    daemon_reload: yes
+  listen: event_restart_node_exporter
