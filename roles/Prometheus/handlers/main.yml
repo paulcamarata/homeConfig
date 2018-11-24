@@ -4,3 +4,10 @@
     state: restarted
     daemon_reload: yes
   listen: systemd_reload
+
+- name: Restart the Firewalld service
+  systemd:
+    name: "firewalld"
+    state: restarted
+    daemon_reload: yes
+  listen: firewalld

@@ -4,3 +4,10 @@
     state: restarted
     daemon_reload: yes
   listen: event_restart_node_exporter
+
+- name: Restart the Firewalld service
+  systemd:
+    name: "firewalld"
+    state: restarted
+    daemon_reload: yes
+  listen: firewalld

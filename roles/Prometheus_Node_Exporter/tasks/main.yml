@@ -1,3 +1,13 @@
+---
+- name: setup_Firewall
+  firewalld:
+    port: "{{ item }}"
+    permanent: true
+    state: enabled
+  with_items:
+    - 9100/tcp
+  notify: firewalld
+  
 - name: Creating node_exporter user group
   group: name="{{ groupId }}"
 
@@ -35,13 +45,13 @@
   template:
     src: init.service.j2
     dest: /etc/systemd/system/node_exporter.service
+    mode: 0644
 
 - name: Start node_exporter service
   systemd:
     name: "{{ serviceName }}"
     state: started
     enabled: yes
-    mode: 0644
   notify: event_restart_node_exporter
 
 - name: Check if node exporter emits metrices
