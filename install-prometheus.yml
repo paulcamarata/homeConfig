@@ -1,0 +1,15 @@
+---
+- hosts: CentOS
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - Prometheus_Node_Exporter
+
+- hosts: prometheus
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - Prometheus_Blackbox_Exporter
+    - Prometheus
