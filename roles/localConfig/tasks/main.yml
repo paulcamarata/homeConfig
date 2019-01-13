@@ -1,5 +1,6 @@
 ---
 # This play is to configure the proxy machines managed by Ansible in my home environment.
+# TODO: Break apart the installs into seperate roles
 
 - name: "Add VSCode Repo"
   yum_repository:
@@ -11,11 +12,82 @@
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     enabled: yes
 
-- name: "Update packages via dnf"
+- name: "Get Docker Repo"
+  get_url:
+    url: https://download.docker.com/linux/fedora/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: "Get Google-Chrome Repo"
+  dnf:
+    name:
+    - https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+
+- name: "Install packages via dnf"
   dnf:
     name:
     - ansible
     - terminator
     - code
+    - google-chrome
+    - redshift
+    - docker
     state: latest
 
+- name: "Start and Enable Docker Daemon"
+  systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: "Register Docker-Compose Latest Version URL via Github API"
+  uri:                                                               
+    url: https://api.github.com/repos/docker/compose/releases/latest
+    return_content: true                                             
+  register: json_reponse 
+
+- name: "Debug Variable to check json"
+  debug:
+    msg: "{{ json_reponse.json.assets.2.browser_download_url }}"
+  tags:
+  - never
+
+- name: "Get Latest Docker-Compose"
+  get_url:
+    url: "{{ json_reponse.json.assets.2.browser_download_url }}"
+    dest: /usr/bin/docker-compose
+    owner: root
+    group: root
+    mode: 0755
+
+- name: "Install Docker Python Dependencies"
+  pip:
+    name:
+    - docker
+    - docker-compose
+    - pyyaml
+
+- name: "Make Gitlab Directory"
+  file:
+    path: /srv/gitlab
+    owner: root
+    group: root
+    mode: 0755
+    recurse: true
+    state: directory
+
+- name: "docker-compose.yml Template"
+  template:
+    src: docker-compose.yml.j2
+    dest: /srv/gitlab/docker-compose.yml
+    owner: root
+    group: root
+    mode: 644
+
+- name: "Gitlab Docker-Compose yaml"
+  docker_service:
+    project_name: gitlab
+    project_src: /srv/gitlab
+  
