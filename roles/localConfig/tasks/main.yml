@@ -1,0 +1,21 @@
+---
+# This play is to configure the proxy machines managed by Ansible in my home environment.
+
+- name: "Add VSCode Repo"
+  yum_repository:
+    name: Visual Studio Code
+    description: Visual Studio Code
+    file: vscode
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    gpgcheck: yes
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    enabled: yes
+
+- name: "Update packages via dnf"
+  dnf:
+    name:
+    - ansible
+    - terminator
+    - code
+    state: latest
+

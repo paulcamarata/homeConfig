@@ -1,0 +1,6 @@
+---
+# Created by: Paul Camarata
+
+- hosts: localhost
+  roles:
+     - localConfig
