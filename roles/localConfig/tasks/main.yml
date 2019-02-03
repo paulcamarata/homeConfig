@@ -78,16 +78,37 @@
     recurse: true
     state: directory
 
-- name: "docker-compose.yml Template"
+- name: "Gitlab docker-compose.yml Template"
   template:
-    src: docker-compose.yml.j2
+    src: gitlab.docker-compose.yml.j2
     dest: /srv/gitlab/docker-compose.yml
     owner: root
     group: root
     mode: 644
 
-- name: "Gitlab Docker-Compose yaml"
+- name: "Gitlab Docker-Compose"
   docker_service:
     project_name: gitlab
     project_src: /srv/gitlab
-  
+ 
+- name: "Make Jenkins Directory"
+  file:
+    path: /srv/jenkins
+    owner: root
+    group: root
+    mode: 0755
+    recurse: true
+    state: directory
+
+- name: "Jenkins docker-compose.yml Template"
+  template:
+    src: jenkins.docker-compose.yml.j2
+    dest: /srv/jenkins/docker-compose.yml
+    owner: root
+    group: root
+    mode: 644
+
+- name: "Jenkins Docker-Compose"
+  docker_service:
+    project_name: jenkins
+    project_src: /srv/jenkins
