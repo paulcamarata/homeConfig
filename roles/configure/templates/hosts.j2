@@ -2,6 +2,6 @@
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
 # Main network for {{ domain }}
-{% for key, value in records.iteritems() %}
+{% for key, value in records.items() %}
 {{ value.forward }}     pc-{{ key }}.{{ domain }}   pc-{{ key }}   {{ key }}
 {% endfor %}

@@ -10,6 +10,6 @@ $TTL 604800	; 1 week
 			NS	{{ ansible_fqdn }}.
 $ORIGIN {{ rev_domain }}.
 $TTL 604800	; 1 week
-{% for key, value in records.iteritems() %}
+{% for key, value in records.items() %}
 {{ value.last }}   PTR   {{ value.rev }}
 {% endfor %}
