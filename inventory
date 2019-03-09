@@ -6,7 +6,7 @@ pc-ark
 
 [CentOS]
 pc-ark
-pc-cent
+pc-fed
 pc-dhcp
 pc-jenkins
 pc-mc
@@ -16,6 +16,7 @@ pc-prometheus
 pc-proxy
 pc-selenium
 pc-vpn
+pc-7days
 
 [dhcp]
 pc-dhcp
