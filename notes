@@ -1,0 +1,73 @@
+# setting kvm-qemu on my ubuntu 20.04 NUC
+
+
+# install kvm-qemu and necessary packages
+apt install bridge-utils qemu-kvm virtinst libvirt-daemon virt-manager
+
+
+# download ubuntu iso
+cd /var/lib/libvirt/boot
+wget http://releases.ubuntu.com/18.04/ubuntu-18.04.5-live-server-amd64.iso
+
+# create a bridged adapter
+
+cp /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.bak
+vi /etc/netplan/00-installer-config.yaml
+----
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eno1:
+      dhcp4: no
+      dhcp6: no
+
+  bridges:
+    br0:
+      interfaces: [eno1]
+      dhcp4: no
+      addresses: [192.168.0.3/24]
+      gateway4: 192.168.0.1
+      nameservers:
+        addresses: [192.168.0.1]
+----
+netplan apply
+
+vi bridge.xml
+----
+<network>
+  <name>br0</name>
+  <forward mode="bridge"/>
+  <bridge name="br0" />
+</network>
+----
+
+virsh net-define ./bridge.xml
+virsh net-start br0
+virsh net-autostart br0
+
+# verify bridge is present
+virsh net-list --all
+
+# create the VM (this never fully completed, not sure why.  when i ctrl c out of it the vm was up and running though)
+virt-install --name ark --ram=16384 --vcpus=2 --cpu host --hvm --disk path=/var/lib/libvirt/images/ark-vm,size=100 --network network=br0 --cdrom /var/lib/libvirt/boot/ubuntu-18.04.5-live-server-amd64.iso --graphics vnc
+
+# check that vnc was enabled
+virsh dumpxml ark | grep vnc
+----
+# Sample output
+<graphics type='vnc' port='5900' autoport='yes' listen='127.0.0.1'>
+---
+
+# portforward the vnc connection
+ssh pcbot@192.168.0.3 -L 5900:127.0.0.1:5900
+
+# using a vnc client from a system with a gui (I used tigervnc on my windows 10 computer) connect to 127.0.0.1:5900
+
+
+# References
+https://ostechnix.com/setup-headless-virtualization-server-using-kvm-ubuntu/
+https://metal.equinix.com/developers/docs/guides/kvm-and-libvirt/
+https://www.answertopia.com/ubuntu/creating-an-ubuntu-kvm-networked-bridge-interface/
+https://bintray.com/tigervnc/stable/tigervnc/1.11.0
+
